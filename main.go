@@ -150,7 +150,17 @@ func SimpanNomor(nomor string) {
 func KirimPesan(w http.ResponseWriter, r *http.Request) {
 	// Pastikan menggunakan metode POST
 	if r.Method != http.MethodPost {
-		http.Error(w, "Metode tidak diizinkan", http.StatusMethodNotAllowed)
+		log.Printf("Metode %s tidak diizinkan di /kirim-pesan", r.Method)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusMethodNotAllowed)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "Metode " + r.Method + " tidak diizinkan",
+		}
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
@@ -159,19 +169,47 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
-		http.Error(w, "Gagal membaca body request", http.StatusBadRequest)
+		log.Printf("Gagal membaca body JSON : %v", err)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "JSON body tidak valid",
+		}
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
 	// Periksa apakah nomor atau pesan kosong
 	if request.No == "" || request.Pesan == "" {
-		http.Error(w, "Parameter 'No' atau 'Pesan' hilang", http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "Nilai 'No' atau 'Pesan' tidak boleh kosong",
+		}
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
 	// Jika client WhatsApp belum terhubung, kirimkan error
 	if wac == nil {
-		http.Error(w, "Server WhatsApp belum terhubung", http.StatusInternalServerError)
+		log.Printf("WhatsApp belum terhubung")
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "WhatsApp belum terhubung",
+		}
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
