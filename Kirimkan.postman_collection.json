@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "fe4009b8-1206-4e70-a98c-b055c2d06790",
+		"name": "Kirimkan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28820299"
+	},
+	"item": [
+		{
+			"name": "Web",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:6969",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6969"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API Kirim Pesan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"No\": \"6285XXXXXXXXX\",\r\n    \"Pesan\": \"kekirim\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:6969/kirim-pesan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6969",
+					"path": [
+						"kirim-pesan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
