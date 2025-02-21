@@ -315,6 +315,6 @@ func main() {
 	http.HandleFunc("/kirim-pesan", KirimPesan)
 
 	// Menjalankan server API
-	log.Printf("Server API berjalan di %s:%s\n", app_host, app_port)
+	log.Printf("Server API berjalan di http://%s:%s\n", app_host, app_port)
 	log.Fatal(http.ListenAndServe(app_host+":"+app_port, nil))
 }
