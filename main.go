@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"sync"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -127,6 +128,13 @@ func KoneksiWA() (*whatsmeow.Client, error) {
 	return client, nil
 }
 
+// Fungsi untuk mengecek apakah nomor telepon sesuai format internasional tanpa tanda "+"
+func NomorValid(phone string) bool {
+	// Regex untuk validasi nomor dengan kode negara (1-3 digit) diikuti oleh nomor telepon (minimal 6-14 digit)
+	re := regexp.MustCompile(`^(\d{1,3})(\d{6,14})$`)
+	return re.MatchString(phone)
+}
+
 // Fungsi untuk menyimpan nomor WhatsApp ke database
 func SimpanNomor(nomor string) {
 	// Cek koneksi database
@@ -192,6 +200,19 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 		response := map[string]interface{}{
 			"status":  "failed",
 			"message": "Nilai 'No' atau 'Pesan' tidak boleh kosong",
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	if !NomorValid(request.No) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "Nomor tidak valid",
 		}
 		json.NewEncoder(w).Encode(response)
 		return
