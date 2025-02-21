@@ -251,6 +251,9 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Mulai layanan
+	log.Printf("Kirimkan dijalankan")
+
 	// Load file konfigurasi
 	err := godotenv.Load("kirimkan.conf")
 	if err != nil {
@@ -313,6 +316,16 @@ func main() {
 
 	// Menambahkan rute untuk API
 	http.HandleFunc("/kirim-pesan", KirimPesan)
+
+	// Menampilkan teks
+	fmt.Print(`
+██╗  ██╗    ██╗    ██████╗     ██╗    ███╗   ███╗    ██╗  ██╗     █████╗     ███╗   ██╗
+██║ ██╔╝    ██║    ██╔══██╗    ██║    ████╗ ████║    ██║ ██╔╝    ██╔══██╗    ████╗  ██║
+█████╔╝     ██║    ██████╔╝    ██║    ██╔████╔██║    █████╔╝     ███████║    ██╔██╗ ██║
+██╔═██╗     ██║    ██╔══██╗    ██║    ██║╚██╔╝██║    ██╔═██╗     ██╔══██║    ██║╚██╗██║
+██║  ██╗    ██║    ██║  ██║    ██║    ██║ ╚═╝ ██║    ██║  ██╗    ██║  ██║    ██║ ╚████║
+╚═╝  ╚═╝    ╚═╝    ╚═╝  ╚═╝    ╚═╝    ╚═╝     ╚═╝    ╚═╝  ╚═╝    ╚═╝  ╚═╝    ╚═╝  ╚═══╝
+`)
 
 	// Menjalankan server API
 	log.Printf("Server API berjalan di http://%s:%s\n", app_host, app_port)
