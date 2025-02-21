@@ -28,8 +28,8 @@ var (
 	db_host        = "127.0.0.1"
 	db_username    = "root"
 	db_password    = ""
-	db_database    = "wa_sender_api"
-	dsn            = "root:@tcp(127.0.0.1:3306)/wa_sender_api"
+	db_database    = "kirimkan"
+	dsn            = "root:@tcp(127.0.0.1:3306)/kirimkan"
 	db             *sql.DB
 	wac            *whatsmeow.Client
 	mu             sync.Mutex
