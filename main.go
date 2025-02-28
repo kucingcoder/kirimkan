@@ -10,6 +10,7 @@ import (
 	"os"
 	"regexp"
 	"sync"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -245,11 +246,40 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 		Conversation: proto.String(request.Pesan),
 	}
 
-	// Mengirim pesan
-	_, err = wac.SendMessage(context.Background(), jid, message)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		log.Printf("Gagal mengirim pesan ke %s : %v", request.No, err)
+	// Buat context dengan timeout 5 detik
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// Channel untuk menerima hasil pengiriman
+	resultChan := make(chan error, 1)
+
+	// Jalankan pengiriman dalam goroutine
+	go func() {
+		_, err := wac.SendMessage(ctx, jid, message)
+		resultChan <- err
+	}()
+
+	// Menunggu hasil pengiriman atau timeout
+	select {
+	case err := <-resultChan:
+		if err != nil {
+			log.Printf("Gagal mengirim pesan ke %s: %v", request.No, err)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"status":  "failed",
+				"message": "Gagal mengirim pesan: " + err.Error(),
+			})
+			return
+		}
+	case <-ctx.Done():
+		log.Printf("Gagal mengirim pesan ke %s: Waktu habis", request.No)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusRequestTimeout)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"status":  "failed",
+			"message": "Gagal mengirim pesan: Waktu habis",
+		})
 		return
 	}
 
