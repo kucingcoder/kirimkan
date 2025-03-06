@@ -2,17 +2,14 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"regexp"
-	"sync"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/mdp/qrterminal/v3"
@@ -26,57 +23,15 @@ import (
 
 // Variabel global untuk menyimpan koneksi database, WhatsApp client, dan mutex
 var (
-	db_save_number = "no"
-	db_host        = "127.0.0.1"
-	db_username    = "root"
-	db_password    = ""
-	db_database    = "kirimkan"
-	dsn            = "root:@tcp(127.0.0.1:3306)/kirimkan"
-	db             *sql.DB
-	wac            *whatsmeow.Client
-	mu             sync.Mutex
-	app_host       = "127.0.0.1"
-	app_port       = "6969"
+	wac      *whatsmeow.Client
+	app_host = "127.0.0.1"
+	app_port = "7069"
 )
 
 // Struktur untuk menerima data JSON
 type BodyKirimPesan struct {
 	No    string `json:"no"`
 	Pesan string `json:"pesan"`
-}
-
-// Fungsi untuk menghubungkan atau memperbarui koneksi database
-func KoneksiDB() {
-	mu.Lock()
-	defer mu.Unlock()
-
-	// Jika koneksi sudah ada dan masih aktif, tidak perlu membuat koneksi baru
-	if db != nil {
-		err := db.Ping()
-		if err == nil {
-			return // Koneksi masih bagus, langsung return
-		}
-		db.Close()
-	}
-
-	// Buat koneksi baru
-	var err error
-	db, err = sql.Open("mysql", dsn)
-	if err != nil {
-		log.Printf("Gagal membuat koneksi ke Database : %v", err)
-		return
-	}
-
-	// Cek koneksi
-	err = db.Ping()
-	if err != nil {
-		log.Printf("Gagal terhubung ke Database : %v", err)
-		db.Close()
-		db = nil
-		return
-	}
-
-	log.Printf("Terhubung ke Database")
 }
 
 // Fungsi untuk menghubungkan WhatsApp client
@@ -134,25 +89,6 @@ func NomorValid(phone string) bool {
 	// Regex untuk validasi nomor dengan kode negara (1-3 digit) diikuti oleh nomor telepon (minimal 6-14 digit)
 	re := regexp.MustCompile(`^(\d{1,3})(\d{6,14})$`)
 	return re.MatchString(phone)
-}
-
-// Fungsi untuk menyimpan nomor WhatsApp ke database
-func SimpanNomor(nomor string) {
-	// Cek koneksi database
-	KoneksiDB()
-
-	err := db.QueryRow("SELECT id FROM whatsapp WHERE nomor = ?", nomor).Scan(new(int))
-
-	if err == sql.ErrNoRows {
-		// Jika nomor belum ada, masukkan ke database
-		_, err := db.Exec("INSERT INTO whatsapp (nomor) VALUES (?)", nomor)
-		if err != nil {
-			log.Printf("Gagal menyimpan nomor : %v", err)
-		}
-		log.Printf("Nomor +%s berhasil disimpan", nomor)
-	} else if err != nil {
-		log.Printf("Gagal memeriksa nomor : %v", err)
-	}
 }
 
 // Fungsi untuk menangani permintaan pengiriman pesan WhatsApp
@@ -283,11 +219,6 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Menyimpan nomor WhatsApp ke database
-	if db_save_number == "yes" {
-		SimpanNomor(request.No)
-	}
-
 	// Mengirim status OK jika berhasil
 	log.Printf("Mengirim pesan ke +%s\n", request.No)
 	w.Header().Set("Content-Type", "application/json")
@@ -314,40 +245,11 @@ func main() {
 	// Mendapatkan nilai konfigurasi
 	app_host = os.Getenv("API_HOST")
 	app_port = os.Getenv("API_PORT")
-	db_save_number = os.Getenv("DB_SAVE_NUMBER")
 
 	// Menampilkan konfigurasi
 	log.Printf("Memuat konfigurasi")
 	log.Printf("APP_HOST : %s", app_host)
 	log.Printf("APP_PORT : %s", app_port)
-
-	if db_save_number == "yes" {
-		db_host = os.Getenv("DB_HOST")
-		db_username = os.Getenv("DB_USERNAME")
-		db_password = os.Getenv("DB_PASSWORD")
-		db_database = os.Getenv("DB_DATABASE")
-
-		log.Printf("DB_SAVE_NUMBER : %s", db_save_number)
-		log.Printf("DB_HOST : %s", db_host)
-		log.Printf("DB_USERNAME : %s", db_username)
-		log.Printf("DB_PASSWORD : %s", db_password)
-		log.Printf("DB_DATABASE : %s", db_database)
-
-		// Memperbaharui url koneksi database
-		dsn = fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true", db_username, db_password, db_host, db_database)
-
-		// Menghubungkan ke Database
-		KoneksiDB()
-
-		// Membuat tabel jika belum ada
-		query := "CREATE TABLE IF NOT EXISTS whatsapp (id INT PRIMARY KEY AUTO_INCREMENT, nomor VARCHAR(16) UNIQUE NOT NULL);"
-		_, err = db.Exec(query)
-		if err != nil {
-			log.Printf("Gagal membuat tabel 'whatsapp' : %v", err)
-			return
-		}
-		log.Printf("Tabel 'whatsapp' siap digunakan")
-	}
 
 	// Menghubungkan ke WhatsApp
 	var err_wa error
