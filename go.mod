@@ -5,7 +5,6 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	github.com/go-sql-driver/mysql v1.9.0
 	github.com/joho/godotenv v1.5.1
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/mdp/qrterminal/v3 v3.2.0
