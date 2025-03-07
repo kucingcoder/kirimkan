@@ -29,11 +29,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
-                    </svg></button>
+                    </button>
                     <ul class="absolute left-0 hidden group-hover:block bg-white shadow-lg rounded-lg w-40 mt-2">
                         <li><a href="/index.html#instalasi" class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Instalasi</a></li>
+                        <li><a href="/index.html#ganti-nomor" class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Ganti Nomor</a></li>
                         <li><a href="/index.html#port-kustom" class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Port Kustom</a></li>
-                        <li><a href="/index.html#akses-publik" class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Akses Publik</a></li>
                         <li><a href="/index.html#api" class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">API</a></li>
                     </ul>
                 </li>
@@ -62,16 +62,382 @@
                 </button>
                 <ul id="mobile-docs-menu" class="hidden flex flex-col bg-white shadow-lg rounded-lg mt-2">
                     <li><a href="/index.html#instalasi" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Instalasi</a></li>
-                    <li><a href="/index.html#instalasi" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Port Kustom</a></li>
-                    <li><a href="/index.html#instalasi" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Akses Publik</a></li>
-                    <li><a href="/index.html#instalasi" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">API</a></li>
+                    <li><a href="/index.html#ganti-nomor" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Ganti Nomor</a></li>
+                    <li><a href="/index.html#port-kustom" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Port Kustom</a></li>
+                    <li><a href="/index.html#api" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">API</a></li>
                 </ul>
             </div>
             <a href="/rilis.html" class="text-gray-700">Rilis</a>
         </div>
     </nav>
 
+    <section id="ikhtisar" class="relative h-screen w-full bg-center bg-cover"
+        style="background-image: url('/background.webp');">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative h-full flex flex-col justify-center mx-8 md:mx-16">
+            <h1 class="text-4xl font-bold text-white">Kirimkan</h1>
+            <p class="text-xl text-white text-justify mt-4 md:max-w-xl">
+                Perangkat lunak opensource untuk mengirim pesan WhatsApp lewat API yang sepenuhnya gratis dan tanpa batas
+                yang dapat digunakan dengan nomor Anda sendiri.
+            </p>
+        </div>
+    </section>
+
+    <section id="instalasi">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-700">Instalasi</h1>
+
+            <ul class="space-y-12 mt-4 mx-8 list-disc text-gray-700">
+                <li class="text-2xl font-bold">
+                    Windows
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>Download installer program Kirimkan di link berikut <a class="text-blue-700 hover:text-blue-500" href="https://kirimkan.serverku.my.id/download/kirimkan-1.0-win.deb" download="kirimkan-1.0-win.deb">Download</a></li>
+                        <li>Install program seperti biasa</li>
+                        <li>Jalankan program Kirimkan lewat shortcut di Desktop</li>
+                        <li>Setelah muncul command line scan QR yang tampil</li>
+                        <li>Tunggu hingga menyambungkan ke WhatsApp berhasil</li>
+                        <li>Setelah berhasil buka browser dan cari <a class="text-blue-700 hover:text-blue-500" href="http://127.0.0.1:7069">http://127.0.0.1:7069</a>, jika sudah ada websitenya maka API sudah berjalan</li>
+                    </ul>
+                </li>
+
+                <li class="text-2xl font-bold mt-4">
+                    Linux Debian Based
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>
+                            <p class="mb-2">Download file package .deb dengan perintah berikut, Sesuaikan dengan arsitektur CPU Anda</p>
+                            <p class="mb-2">Daftar arsitektur yang tersedia antara lain intel86, amd64, dan arm64</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">wget https://kirimkan.serverku.my.id/download/kirimkan-1.0-&lt;arsitektur&gt;.deb</code>
+                                </div>
+                                <button onclick="copyToClipboard('wget https://kirimkan.serverku.my.id/download/kirimkan-1.0-&lt;arsitektur&gt;.deb')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                    
+                        <li>
+                            <p class="mb-2">Atur izin eksekusi dan lainnya dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">chmod 755 kirimkan-1.0-&lt;arsitektur&gt;.deb</code>
+                                </div>
+                                <button onclick="copyToClipboard('chmod 755 kirimkan-1.0-&lt;arsitektur&gt;.deb')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Install Kirimkan dengan perintah dibawah ini dan tunggu hingga instalasi selesai</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full  bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2whitespace-nowrap rounded">sudo dpkg -i kirimkan-1.0-&lt;arsitektur&gt;.deb</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo dpkg -i kirimkan-1.0-&lt;arsitektur&gt;.deb')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Jalankan linux daemon/service Kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl start kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl start kirimkan')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Untuk menampilkan QR yang akan di scan di WhatsApp jalankan perintah berikut lalu scroll kebawah dengan tombol page down hingga QR terlihat semuanya</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl status kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl status kirimkan')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>Scan QR lalu tunggu hingga menyambungkan ke WhatsApp berhasil</li>
+                        <li>Setelah berhasil buka browser dan cari <a class="text-blue-700 hover:text-blue-500" href="http://127.0.0.1:7069">http://127.0.0.1:7069</a>, jika sudah ada websitenya maka API sudah berjalan</li>
+                    </ul>
+                </li>
+
+                <li class="text-2xl font-bold mt-4">
+                    Linux RedHat Based
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>
+                            <p class="mb-2">Download file package .rpm dengan perintah berikut, Sesuaikan dengan arsitektur CPU Anda</p>
+                            <p class="mb-2">Daftar arsitektur yang tersedia antara lain intel86, amd64, dan arm64</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">wget https://kirimkan.serverku.my.id/download/kirimkan-1.0-&lt;arsitektur&gt;.rpm</code>
+                                </div>
+                                <button onclick="copyToClipboard('wget https://kirimkan.serverku.my.id/download/kirimkan-1.0-&lt;arsitektur&gt;.rpm')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                
+                        <li>
+                            <p class="mb-2">Atur izin eksekusi dan lainnya dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">chmod 755 kirimkan-1.0-&lt;arsitektur&gt;.rpm</code>
+                                </div>
+                                <button onclick="copyToClipboard('chmod 755 kirimkan-1.0-&lt;arsitektur&gt;.rpm')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                
+                        <li>
+                            <p class="mb-2">Install Kirimkan dengan perintah dibawah ini dan tunggu hingga instalasi selesai</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo rpm -i kirimkan-1.0-&lt;arsitektur&gt;.rpm</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo rpm -i kirimkan-1.0-&lt;arsitektur&gt;.rpm')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                
+                        <li>
+                            <p class="mb-2">Jalankan linux daemon/service Kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl start kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl start kirimkan')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                
+                        <li>
+                            <p class="mb-2">Untuk menampilkan QR yang akan di scan di WhatsApp jalankan perintah berikut lalu scroll
+                                kebawah dengan tombol page down hingga QR terlihat semuanya</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl status kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl status kirimkan')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                
+                        <li>Scan QR lalu tunggu hingga menyambungkan ke WhatsApp berhasil</li>
+                        <li>Setelah berhasil buka browser dan cari <a class="text-blue-700 hover:text-blue-500" href="http://127.0.0.1:7069">http://127.0.0.1:7069</a>, jika sudah ada websitenya maka API sudah berjalan</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="ganti-nomor">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-700">Ganti Nomor</h1>
+
+            <ul class="space-y-12 mt-4 mx-8 list-disc text-gray-700">
+                <li class="text-2xl font-bold">
+                    Windows
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>Buka folder Kirimkan yang berada di C:\Program Files</li>
+                        <li>Hapus file session.lock</li>
+                        <li>Jalankan program Kirimkan lewat shortcut di Desktop</li>
+                        <li>Setelah muncul command line scan QR yang tampil</li>
+                        <li>Tunggu hingga menyambungkan ke WhatsApp berhasil</li>
+                        <li>Setelah berhasil buka browser dan cari <a class="text-blue-700 hover:text-blue-500" href="http://127.0.0.1:7069">http://127.0.0.1:7069</a>, jika sudah ada websitenya maka API sudah berjalan</li>
+                    </ul>
+                </li>
+            
+                <li class="text-2xl font-bold mt-4">
+                    Linux
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>
+                            <p class="mb-2">Buka folder /etc/kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code
+                                        class="block p-2 whitespace-nowrap rounded">cd /etc/kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('cd /etc/kirimkan')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+            
+                        <li>
+                            <p class="mb-2">Hapus file session.lock dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo rm session.lock</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo rm session.lock')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+            
+                        <li>
+                            <p class="mb-2">Mulai ulang daemon/service Kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code
+                                        class="block p-2 whitespace-nowrap rounded">sudo systemctl restart kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl restart kirimkan')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+            
+                        <li>
+                            <p class="mb-2">Untuk menampilkan QR yang akan di scan di WhatsApp jalankan perintah berikut lalu scroll
+                                kebawah dengan tombol page down hingga QR terlihat semuanya</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl status kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl status kirimkan')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                        
+                        <li>Scan QR lalu tunggu hingga menyambungkan ke WhatsApp berhasil</li>
+                        <li>Setelah berhasil buka browser dan cari <a class="text-blue-700 hover:text-blue-500"
+                                href="http://127.0.0.1:7069">http://127.0.0.1:7069</a>, jika sudah ada websitenya maka API sudah berjalan</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="port-kustom">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-700">Port Kustom</h1>
+            
+            <ul class="space-y-12 mt-4 mx-8 list-disc text-gray-700">
+                <li class="text-2xl font-bold">
+                    Windows
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>Buka file kirimkan.conf yang berada di C:\Program Files\Kirimkan</li>
+                        <li>Ubah API_PORT sesuai keinginan</li>
+                        <li>Simpan file kirimkan.conf</li>
+                        <li>Jalankan program Kirimkan lewat shortcut di Desktop</li>
+                    </ul>
+                </li>
+            
+                <li class="text-2xl font-bold mt-4">
+                    Linux
+                    <ul class="space-y-2 mt-4 mx-6 list-decimal text-gray-700 text-xl font-normal">
+                        <li>
+                            <p class="mb-2">Buka file kirimkan.conf yang berada di /etc/kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo nano /etc/kirimkan/kirimkan.conf</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo nano /etc/kirimkan/kirimkan.conf')" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Ubah API_PORT sesuai keinginan</p>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Simpan file kirimkan.conf dengan menekan tombol ctrl + x kemudian y untuk menyimpan</p>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Mulai ulang daemon/service Kirimkan dengan perintah berikut</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl restart kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl restart kirimkan')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p class="mb-2">Cek status daemon/service Kirimkan dengan perintah berikut. pastikan statusnya active dan sudah muncul 'Server API berjalan' sesuai dengan API_PORT di akhir log</p>
+                            <div class="flex w-full space-x-2">
+                                <div class="w-full bg-gray-200 overflow-x-auto">
+                                    <code class="block p-2 whitespace-nowrap rounded">sudo systemctl status kirimkan</code>
+                                </div>
+                                <button onclick="copyToClipboard('sudo systemctl status kirimkan')"
+                                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="api">
+        <div class="p-8">
+            <h1 class="text-4xl font-bold text-gray-700">API</h1>
+
+            <p class="mt-4 text-gray-700 text-xl">Format permintaan API Kirimkan seperti berikut</p>
+
+            <div class="flex flex-col">
+                <div class="mt-4 flex items-center gap-2">
+                    <p class="text-gray-700 text-xl">URL :</p>
+                    <p class="bg-grey-700 text-xl">http://127.0.0.1:6969/kirim-pesan</p>
+                </div>
+
+                <div class="mt-4 flex items-center gap-2">
+                    <p class="text-gray-700 text-xl">Method :</p>
+                    <p class="p-2 bg-yellow-400 rounded text-white font-bold">POST</p>
+                </div>
+
+                <div class="mt-4 flex flex-col gap-2">
+                    <p class="text-gray-700 text-xl">Body (JSON) :</p>
+                    <div class="flex w-full space-x-2">
+                        <div class="w-full bg-gray-200 overflow-x-auto">
+                            <code class="block p-2 whitespace-nowrap rounded">{"No": "6285XXXXXXXXX", "Pesan": "pesanmu"}</code>
+                        </div>
+                        <button onclick='copyToClipboard(`{"No": "6285XXXXXXXXX", "Pesan": "pesanmu"}`)'
+                            class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-95 transition">Salin</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-12 text-gray-700 text-xl">Format respon API Kirimkan berhasil seperti berikut</p>
+            
+            <div class="flex flex-col">
+                <div class="mt-4 flex items-center gap-2">
+                    <p class="text-gray-700 text-xl">Status :</p>
+                    <p class="p-2 bg-green-400 rounded text-white font-bold">200</p>
+                </div>
+            
+                <div class="mt-4 flex flex-col gap-2">
+                    <p class="text-gray-700 text-xl">Body (JSON) :</p>
+                    <div class="flex w-full space-x-2">
+                        <div class="w-full bg-gray-200 overflow-x-auto">
+                            <code class="block p-2 whitespace-nowrap rounded">{"message":"Pesan berhasil dikirim ke 6285XXXXXXXXX", "status":"success"}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-12 text-gray-700 text-xl">Format respon API Kirimkan gagal seperti berikut</p>
+            
+            <div class="flex flex-col">
+                <div class="mt-4 flex items-center gap-2">
+                    <p class="text-gray-700 text-xl">Status :</p>
+                    <p class="p-2 bg-red-500 rounded text-white font-bold">400</p>
+                </div>
+            
+                <div class="mt-4 mb-4 flex flex-col gap-2">
+                    <p class="text-gray-700 text-xl">Body (JSON) :</p>
+                    <div class="flex w-full space-x-2">
+                        <div class="w-full bg-gray-200 overflow-x-auto">
+                            <code
+                                class="block p-2 whitespace-nowrap rounded">{"message":"pesan kegagalan", "status":"failed"}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="text-blue-700 hover:text-blue-500 text-xl" href="/kirimkan.json" download="kirimkan.json">
+                Download Postman Collection
+            </a>
+        </div>
+    </section>
+
     <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);      
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
                 let dropdown = document.querySelector(".group");
                 let menu = dropdown.querySelector("ul");
