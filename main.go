@@ -71,6 +71,9 @@ func KoneksiWA() (*whatsmeow.Client, error) {
 				qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 			} else {
 				log.Printf("Event Login : %s", evt.Event)
+				if evt.Event == "timeout" {
+					os.Exit(1)
+				}
 			}
 		}
 	} else {
