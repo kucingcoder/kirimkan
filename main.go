@@ -243,6 +243,7 @@ func main() {
 	err := godotenv.Load("kirimkan.conf")
 	if err != nil {
 		log.Printf("Gagal membaca file konfigurasi : %v", err)
+		os.Exit(1)
 	}
 
 	// Mendapatkan nilai konfigurasi
