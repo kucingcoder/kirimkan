@@ -7,7 +7,7 @@ if "%1"=="intel86" (
     set CGO_ENABLED=1
     set CC=gcc
     echo Memulai build...
-    go build -ldflags "-s -w" -o build\windows\kirimkan.exe main.go
+    go build -ldflags "-s -w" -o build\windows\kirimkan-1.0-intel86.exe main.go
     echo Build selesai: build\windows\kirimkan.exe
     exit /b 0
 )
@@ -18,7 +18,7 @@ if "%1"=="amd64" (
     set CGO_ENABLED=1
     set CC=gcc
     echo Memulai build...
-    go build -ldflags "-s -w" -o build\windows\kirimkan.exe main.go
+    go build -ldflags "-s -w" -o build\windows\kirimkan-1.0-amd64.exe main.go
     echo Build selesai: build\windows\kirimkan.exe
     exit /b 0
 )
