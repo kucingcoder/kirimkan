@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirimkan</title>
+    <link rel="icon" type="image/x-icon" href="/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <nav class="bg-white shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div>
+                <a href="/" class="flex items-center justify-center space-x-2">
+                    <img src="/logo.png" alt="Logo" class="w-6 h-6">
+                    <p class="font-bold text-gray-700 text-xl">Kirimkan</p>
+                </a>
+            </div>
+
+            <!-- Menu untuk Desktop -->
+            <ul class="hidden md:flex space-x-6 text-gray-700">
+                <!-- Dropdown Dokumentasi -->
+                <li class="relative group">
+                    <button onclick="location.href = '/';"
+                        class="flex items-center gap-2 text-gray-700 hover:text-gray-500 hover:underline">
+                        Dokumentasi
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <ul class="absolute left-0 hidden group-hover:block bg-white shadow-lg rounded-lg w-40 mt-2">
+                        <li><a href="/index.html#instalasi"
+                                class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Instalasi</a>
+                        </li>
+                        <li><a href="/index.html#ganti-nomor"
+                                class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Ganti
+                                Nomor</a></li>
+                        <li><a href="/index.html#port-kustom"
+                                class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">Port
+                                Kustom</a></li>
+                        <li><a href="/index.html#api"
+                                class="block px-4 py-2 text-gray-700 hover:text-gray-500 hover:underline hover:bg-gray-200">API</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/rilis.html" class="text-gray-700 hover:text-gray-500 hover:underline">Rilis</a>
+                </li>
+            </ul>
+
+            <!-- Tombol Hamburger untuk Mobile -->
+            <button id="menu-btn" class="md:hidden text-gray-700 text-2xl">
+                ☰
+            </button>
+        </div>
+
+        <!-- Menu untuk Mobile -->
+        <div id="mobile-menu"
+            class="hidden md:hidden flex flex-col space-y-4 p-4 bg-white absolute top-16 right-0 w-full">
+            <!-- Dropdown Dokumentasi untuk Mobile -->
+            <div class="relative">
+                <button id="mobile-docs-btn" class="flex items-center justify-between w-full text-gray-700">
+                    Dokumentasi
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <ul id="mobile-docs-menu" class="hidden flex flex-col bg-white shadow-lg rounded-lg mt-2">
+                    <li><a href="/index.html#instalasi"
+                            class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Instalasi</a></li>
+                    <li><a href="/index.html#ganti-nomor" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Ganti
+                            Nomor</a></li>
+                    <li><a href="/index.html#port-kustom" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Port
+                            Kustom</a></li>
+                    <li><a href="/index.html#api" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">API</a></li>
+                </ul>
+            </div>
+            <a href="/rilis.html" class="text-gray-700">Rilis</a>
+        </div>
+    </nav>
+
+    <div class="p-8">
+        <h1 class="text-4xl text-center font-bold text-gray-700">DOWNLOAD</h1>
+        <h1 class="text-3xl text-center font-bold text-gray-700 mb-12">KIRIMKAN WINDOWS</h1>
+
+        <div class="flex flex-col md:flex-row mx-8 justify-center gap-4">
+            <a href="https://kirimkan.serverku.my.id/download/Kirimkan-Installer-intel86.exe" download="Kirimkan-Installer-intel86.exe"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded text-center">Download Intel86 (32 Bit)</a>
+
+            <a href="https://kirimkan.serverku.my.id/download/Kirimkan-Installer-amd64.exe" download="Kirimkan-Installer-amd64.exe"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded text-center">Download AMD64 (64 Bit)</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let dropdown = document.querySelector(".group");
+            let menu = dropdown.querySelector("ul");
+
+            let timeout;
+
+            dropdown.addEventListener("mouseenter", function () {
+                clearTimeout(timeout);
+                menu.style.display = "block";
+            });
+
+            dropdown.addEventListener("mouseleave", function () {
+                timeout = setTimeout(() => { menu.style.display = "none"; }, 300);
+            });
+        }
+        );
+
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileDocsBtn = document.getElementById("mobile-docs-btn");
+        const mobileDocsMenu = document.getElementById("mobile-docs-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        mobileDocsBtn.addEventListener("click", () => {
+            mobileDocsMenu.classList.toggle("hidden");
+        });
+    </script>
+</body>
+
+</html>
