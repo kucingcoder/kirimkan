@@ -21,7 +21,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// Variabel global untuk menyimpan koneksi database, WhatsApp client, dan mutex
+// Variabel global untuk menyimpan WhatsApp client dan konfigurasi API
 var (
 	wac      *whatsmeow.Client
 	app_host = "127.0.0.1"
