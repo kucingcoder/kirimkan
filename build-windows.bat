@@ -6,19 +6,19 @@ if "%1"=="intel86" (
     set GOARCH=386
     set CGO_ENABLED=1
     set CC=gcc
-    echo Mempersiapkan Build intel86
+    echo Preparing intel86 Build
     if not exist "build\windows\intel86" mkdir "build\windows\intel86"
-    echo Memulai kompilasi exe...
+    echo Starting exe compilation...
     go build -ldflags "-s -w" -o build\windows\intel86\kirimkan-1.0.exe main.go
-    echo Kompilasi selesai: build\windows\intel86\kirimkan.exe
-    echo Menyalin web...
+    echo Compilation completed: build\windows\intel86\kirimkan.exe
+    echo Copying web files...
     xcopy web build\windows\intel86\web /E /Y /I
-    echo Membuat Konfigurasi...
+    echo Creating Configuration...
     echo API_HOST=127.0.0.1 > build\windows\intel86\kirimkan.conf
     echo API_PORT=7069 >> build\windows\intel86\kirimkan.conf
     echo API_TOKEN=983be0d548d7936377fd9f6279ae7c4f >> build\windows\intel86\kirimkan.conf
-    echo Konfigurasi disimpan: build\windows\intel86\kirimkan.conf
-    echo Build Selesai
+    echo Configuration saved: build\windows\intel86\kirimkan.conf
+    echo Build Completed
     exit /b 0
 )
 
@@ -27,24 +27,24 @@ if "%1"=="amd64" (
     set GOARCH=amd64
     set CGO_ENABLED=1
     set CC=gcc
-    echo Mempersiapkan Build amd64
+    echo Preparing amd64 Build
     if not exist "build\windows\amd64" mkdir "build\windows\amd64"
-    echo Memulai kompilasi exe...
+    echo Starting exe compilation...
     go build -ldflags "-s -w" -o build\windows\amd64\kirimkan-1.0.exe main.go
-    echo Kompilasi selesai: build\windows\amd64\kirimkan.exe
-    echo Menyalin web...
+    echo Compilation completed: build\windows\amd64\kirimkan.exe
+    echo Copying web files...
     xcopy web build\windows\amd64\web /E /Y /I
-    echo Membuat Konfigurasi...
+    echo Creating Configuration...
     echo API_HOST=127.0.0.1 > build\windows\amd64\kirimkan.conf
     echo API_PORT=7069 >> build\windows\amd64\kirimkan.conf
     echo API_TOKEN=983be0d548d7936377fd9f6279ae7c4f >> build\windows\amd64\kirimkan.conf
-    echo Konfigurasi disimpan: build\windows\amd64\kirimkan.conf
-    echo Build Selesai
+    echo Configuration saved: build\windows\amd64\kirimkan.conf
+    echo Build Completed
     exit /b 0
 )
 
-echo Penggunaan: %~nx0
-echo Contoh:
-echo    %~nx0 intel86   - Build untuk Windows 32-bit (Intel x86)
-echo    %~nx0 amd64     - Build untuk Windows 64-bit (AMD64)
+echo Usage: %~nx0
+echo Example:
+echo    %~nx0 intel86   - Build for Windows 32-bit (Intel x86)
+echo    %~nx0 amd64     - Build for Windows 64-bit (AMD64)
 exit /b 1
