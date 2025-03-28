@@ -23,15 +23,17 @@ import (
 
 // Variabel global untuk menyimpan WhatsApp client dan konfigurasi API
 var (
-	wac      *whatsmeow.Client
-	app_host = "127.0.0.1"
-	app_port = "7069"
+	wac       *whatsmeow.Client
+	app_host  = "127.0.0.1"
+	app_port  = "7069"
+	app_token = "983be0d548d7936377fd9f6279ae7c4f"
 )
 
 // Struktur untuk menerima data JSON
 type BodyKirimPesan struct {
 	No    string `json:"no"`
 	Pesan string `json:"pesan"`
+	Token string `json:"token"`
 }
 
 // Fungsi untuk menghubungkan WhatsApp client
@@ -132,19 +134,34 @@ func KirimPesan(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Periksa apakah nomor atau pesan kosong
-	if request.No == "" || request.Pesan == "" {
+	if request.No == "" || request.Pesan == "" || request.Token == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
 
 		// Kirim balasan JSON
 		response := map[string]interface{}{
 			"status":  "failed",
-			"message": "Nilai 'No' atau 'Pesan' tidak boleh kosong",
+			"message": "Nomor, pesan, dan token tidak boleh kosong",
 		}
 		json.NewEncoder(w).Encode(response)
 		return
 	}
 
+	// Periksa apakah token sesuai
+	if request.Token != app_token {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+
+		// Kirim balasan JSON
+		response := map[string]interface{}{
+			"status":  "failed",
+			"message": "Token tidak valid",
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	// Periksa apakah nomor valid
 	if !NomorValid(request.No) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
@@ -249,11 +266,13 @@ func main() {
 	// Mendapatkan nilai konfigurasi
 	app_host = os.Getenv("API_HOST")
 	app_port = os.Getenv("API_PORT")
+	app_token = os.Getenv("API_TOKEN")
 
 	// Menampilkan konfigurasi
 	log.Printf("Memuat konfigurasi")
 	log.Printf("APP_HOST : %s", app_host)
 	log.Printf("APP_PORT : %s", app_port)
+	log.Printf("APP_TOKEN : %s", app_token)
 
 	// Menghubungkan ke WhatsApp
 	var err_wa error
