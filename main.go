@@ -41,7 +41,7 @@ var (
 type SendMessageRequest struct {
 	Number  string `json:"number"`
 	Message string `json:"message"`
-	Token   string `json:"api_key"`
+	ApiKey  string `json:"api_key"`
 }
 
 // Function to connect to WhatsApp
@@ -379,12 +379,24 @@ func SendMessageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if request.Number == "" || request.Message == "" || request.Token == "" {
+	if request.Number == "" || request.Message == "" || request.ApiKey == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"status":  "failed",
 			"message": "Number, message, and token cannot be empty",
+		})
+		return
+	}
+
+	var apiKey string
+	api_err := db_users.QueryRow(`SELECT api_key FROM users WHERE api_key = ?`, request.ApiKey).Scan(&apiKey)
+	if api_err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"status":  "failed",
+			"message": "Invalid api_key",
 		})
 		return
 	}

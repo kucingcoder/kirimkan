@@ -45,25 +45,35 @@
                 <h2 class="text-xl font-semibold mb-3 text-gray-700">Your API Key</h2>
                 <div class="bg-gray-100 p-4 rounded-lg break-all text-sm flex items-center justify-between">
                     <span id="apiKey">{{.ApiKey}}</span>
-                    <button onclick="copyApiKey()" class="ml-4 text-blue-500 hover:text-blue-700 font-semibold text-sm">
-                        Copy
-                    </button>
                 </div>
             </div>
     
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-3 text-gray-700">How to use the API</h2>
+                <div class="flex items-center gap-2 mb-3">
+                    <p class="font-semibold">URL</p>
+                    <p class="bg-gray-100 p-2 rounded-lg">https://kirimkan.mashanif.my.id/send-message</p>
+                </div>
+                <div class="flex items-center gap-2 mb-3">
+                    <p class="font-semibold">Method</p>
+                    <p class="bg-gray-100 p-2 rounded-lg text-yellow-500">POST</p>
+                </div>
+                <div class="flex items-center gap-2 mb-3">
+                    <p class="font-semibold">Content-Type</p>
+                    <p class="bg-gray-100 p-2 rounded-lg">application/json</p>
+                </div>
+
+                <div class="flex items-center gap-2 mb-2">
+                    <p class="font-semibold">Body</p>
+                </div>
                 <div class="bg-gray-100 p-4 rounded-lg text-sm">
-                    <pre class="whitespace-pre-wrap">
-    POST /send-message
-    Content-Type: application/json
-    
-    {
-        "number": "62387593248",
-        "message": "hello world",
-        "api_key": "{{.ApiKey}}"
-    }
-    </pre>
+<pre class="whitespace-pre-wrap">
+{
+    "number": "6285933887666",
+    "message": "hello world",
+    "api_key": "{{.ApiKey}}"
+}
+</pre>
                 </div>
             </div>
     
@@ -104,19 +114,7 @@
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-
-        function copyApiKey() {
-            const apiKey = document.getElementById('apiKey').innerText;
-            navigator.clipboard.writeText(apiKey)
-                .then(() => {
-                    alert('API Key copied to clipboard!');
-                })
-                .catch(err => {
-                    console.error('Failed to copy!', err);
-                });
-        }
     </script>
-
 </body>
 
 </html>
