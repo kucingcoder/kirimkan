@@ -57,7 +57,7 @@ go build
   - username : admin
   - password : admin
 
-- Change username & password for security
+- Change admin password for security
 - Relogin to make sure was changed
 - If you want to share with your friends ana register menu to create a new user
 
