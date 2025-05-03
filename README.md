@@ -15,7 +15,7 @@ Send WhatsApp messages via HTTP requests for OTP, notifications, and more.
 ### Prerequisites
 
 - Go 1.23.0 or later
-- [WhatsApp App](https://www.whatsapp.com/) for scan QR (connectiong accounts)
+- [Whatsapp App](https://play.google.com/store/apps/details?id=com.whatsapp) for scan QR (connectiong accounts)
 
 ### Build
 
