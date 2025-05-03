@@ -10,7 +10,7 @@ Send WhatsApp messages via HTTP requests for OTP, notifications, and more.
 - ⚡ Built with Go for performance and simplicity
 - ✅ Useful for OTPs, alerts, notifications, and automation
 
-## 📦 Installation
+## 📦 PROJECT SETUP
 
 ### Prerequisites
 
