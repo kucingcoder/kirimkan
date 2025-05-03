@@ -124,7 +124,7 @@ func createDefaultAdmin() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("Default admin user created: admin/admin")
+		log.Println("Default user created username: admin | password: admin")
 	}
 }
 
@@ -297,9 +297,18 @@ func DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	scheme := "http"
+	if r.TLS != nil {
+		scheme = "https"
+	}
+
+	fullURL := fmt.Sprintf("%s://%s", scheme, r.Host)
+
 	data := struct {
+		Url    string
 		ApiKey string
 	}{
+		Url:    fullURL,
 		ApiKey: apiKey,
 	}
 
@@ -503,7 +512,7 @@ func main() {
 	defer wac.Disconnect()
 
 	var db_user_err error
-	db_users, err = sql.Open("sqlite3", "./users.db")
+	db_users, db_user_err = sql.Open("sqlite3", "users.sqlite")
 	if db_user_err != nil {
 		log.Printf("Failed to connect to database: %v", db_user_err)
 		return
