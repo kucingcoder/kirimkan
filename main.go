@@ -512,7 +512,7 @@ func main() {
 	defer wac.Disconnect()
 
 	var db_user_err error
-	db_users, db_user_err = sql.Open("sqlite3", "users.sqlite")
+	db_users, db_user_err = sql.Open("sqlite3", "usersdb.sqlite")
 	if db_user_err != nil {
 		log.Printf("Failed to connect to database: %v", db_user_err)
 		return
