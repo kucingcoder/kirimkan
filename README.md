@@ -1,5 +1,4 @@
-![ChatGPT Image May 3, 2025, 09_48_41 PM](https://github.com/user-attachments/assets/3712eb06-b636-41b6-8a34-e8a7e6269dc1)
-
+![](https://github.com/user-attachments/assets/c7bb3bbb-c53e-41fe-9e64-1ec995e252b4)
 
 # kirimkan
 
