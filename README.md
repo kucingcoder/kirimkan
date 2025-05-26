@@ -60,6 +60,7 @@ go build
   - username : admin
   - password : admin
 
+- Follow the http request instructions in the dashboard to send a whatsapp message
 - Change admin password for security
 - Relogin to make sure was changed
 - If you want to share with your friends, there is a registration menu to create a new user.
