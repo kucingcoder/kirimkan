@@ -47,13 +47,13 @@ type SendMessageRequest struct {
 // Function to connect to WhatsApp
 func ConnectToWhatsApp() (*whatsmeow.Client, error) {
 	// Initialize database storage
-	container, err := sqlstore.New("sqlite3", "file:session.lock?_foreign_keys=on", waLog.Noop)
+	container, err := sqlstore.New(context.Background(), "sqlite3", "file:session.lock?_foreign_keys=on", waLog.Noop)
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize database: %w", err)
 	}
 
 	// Get the first device store
-	deviceStore, err := container.GetFirstDevice()
+	deviceStore, err := container.GetFirstDevice(context.Background())
 	if err != nil {
 		return nil, fmt.Errorf("failed to get device store: %w", err)
 	}
